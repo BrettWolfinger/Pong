@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//input module for AI control using heuristics
 public class AIInput : ControllerElement, IInput
 {
     GameObject ball;
+    //interface implementation
     private float _moveInput;
     public float MoveInput
     {
@@ -16,10 +18,12 @@ public class AIInput : ControllerElement, IInput
     {
         get => _rotateInput;
     }
-     // initialize components and store original position for resets
+    
     void Start()
     {
+        //need to get reference to ball for movement heuristic
         ball = GameObject.FindGameObjectWithTag("Ball");
+        _rotateInput = 0;
     }
 
     void Update() {
@@ -41,7 +45,7 @@ public class AIInput : ControllerElement, IInput
             _moveInput = 1;
         }
     }
-
+    //no current implementation for AI rotate
     void AIRotate(InputValue value)
     {
         _rotateInput = 0;

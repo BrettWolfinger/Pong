@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-public class BallMovement : MonoBehaviour, IResetable
+public class BallMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 3f;
 
@@ -15,6 +15,14 @@ public class BallMovement : MonoBehaviour, IResetable
     {
         rb = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnEnable() {
+        GameManager.ResetState += Reset;
+    }
+
+    private void OnDisable() {
+        GameManager.ResetState -= Reset;
     }
 
     //Change movement of ball after colliding with something
@@ -42,7 +50,7 @@ public class BallMovement : MonoBehaviour, IResetable
         return new Vector2 (x*moveSpeed, y*moveSpeed);
     }
 
-    public void Reset() 
+    private void Reset() 
     {
         transform.position = new Vector2(0,0);
         velocity = GenerateStartingVelocity();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,7 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] Controller nonPlayerPaddle;
-    [SerializeField] Controller player1;
-    [SerializeField] GameManager gameManager;
+    public static Action GameSelected = delegate { };
 
     // Freeze background gameplay
     void Start()
@@ -17,14 +17,15 @@ public class MainMenu : MonoBehaviour
     public void PlaySinglePlayer()
     {
         gameObject.SetActive(false);
+        //change nonplayer paddle to AI controller for single player (default is player controlled)
         nonPlayerPaddle.input = nonPlayerPaddle.GetComponent<AIInput>();
-        gameManager.StartMatch();
+        GameSelected.Invoke();
     }
 
     public void PlayTwoPlayer()
     {
         gameObject.SetActive(false);
-        gameManager.StartMatch();
+        GameSelected.Invoke();
     }
 
     public void Quit()

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//Input module controlled by the player using unity input system.
 public class PlayerInput : ControllerElement, IInput
 {
+    //interface implementation
     private float _moveInput;
     public float MoveInput
     {
@@ -15,6 +17,8 @@ public class PlayerInput : ControllerElement, IInput
     {
         get => _rotateInput;
     }
+
+    //events sent by unity input system for updating values
     void OnMove(InputValue value)
     {
         _moveInput = value.Get<float>();

@@ -2,18 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
-public class TimeKeeper : MonoBehaviour, IResetable
+public class TimeKeeper : MonoBehaviour
 {
     [SerializeField] float matchTime = 60f;
     [SerializeField] TextMeshProUGUI timerUI;
-    [SerializeField] GameManager gameManager;
+    public static Action TimeUp = delegate { }; //event triggered when time runs out
     bool isTimeUp = false;
     float time;
 
     void Start()
     {
         time = matchTime;
+    }
+    private void OnEnable() {
+        GameManager.ResetState += Reset;
+    }
+
+    private void OnDisable() {
+        GameManager.ResetState -= Reset;
     }
 
     //Counts down time until time is up and then ends the match
@@ -26,12 +34,12 @@ public class TimeKeeper : MonoBehaviour, IResetable
             if(time < 0)
             {
                 isTimeUp = true;
-                gameManager.EndMatch();
+                TimeUp.Invoke();
             }
         }
     }
 
-    public void Reset()
+    private void Reset()
     {
         isTimeUp = false;
         time = matchTime;

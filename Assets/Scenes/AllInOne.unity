@@ -1638,7 +1638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28463cb357930c047bfffa2bcdfb8627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matchTime: 40
+  matchTime: 10
   timerUI: {fileID: 1852276719}
   gameManager: {fileID: 887022539}
 --- !u!4 &1227981433

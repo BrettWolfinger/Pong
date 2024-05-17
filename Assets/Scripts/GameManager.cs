@@ -1,12 +1,24 @@
 using System.Collections;
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 //Handles ending and starting matches
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject endGameMenu;
+    public static Action ResetState = delegate { };
+
+    private void OnEnable() {
+        TimeKeeper.TimeUp += EndMatch;
+        MainMenu.GameSelected += StartMatch;
+    }
+
+    private void OnDisable() {
+        TimeKeeper.TimeUp -= EndMatch;
+        MainMenu.GameSelected -= StartMatch;
+    }
+
     public void EndMatch()
     {
         //pauses background gameplay
@@ -18,11 +30,6 @@ public class GameManager : MonoBehaviour
     {
         //restarts background gameplay
         Time.timeScale = 1;
-        //finds all the objects that extend resetable and resets state for 
-        //start of next game
-        var ss = FindObjectsOfType<MonoBehaviour>().OfType<IResetable>();
-        foreach(IResetable s in ss) {
-            s.Reset();
-        }
+        ResetState.Invoke();
     }
 }
