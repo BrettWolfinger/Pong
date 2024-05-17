@@ -26,6 +26,7 @@ public class Controller : MonoBehaviour
     public Rigidbody2D rb;
     Vector3 originalPosition;
     Quaternion originalRotation;
+    bool modsEnabled = false;
 
     void Start()
     {
@@ -37,15 +38,25 @@ public class Controller : MonoBehaviour
     }
     private void OnEnable() {
         GameManager.ResetState += Reset;
+        MainMenu.ToggleClicked += EnableMods;
     }
 
     private void OnDisable() {
         GameManager.ResetState -= Reset;
+        MainMenu.ToggleClicked -= EnableMods;
     }
 
     private void FixedUpdate() {
         move.Move(input.MoveInput);
-        rotate.Rotate(input.RotateInput);
+        if(modsEnabled)
+        {
+            rotate.Rotate(input.RotateInput);
+        }
+    }
+
+    void EnableMods(bool state)
+    {
+        modsEnabled = state;
     }
 
     private void Reset() 
