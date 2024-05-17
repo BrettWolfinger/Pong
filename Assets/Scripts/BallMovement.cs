@@ -30,10 +30,6 @@ public class BallMovement : MonoBehaviour
         audioSource.Play();
         velocity = Vector2.Reflect(velocity, other.contacts[0].normal);
         rb.velocity = velocity;
-        if(other.gameObject.tag == "SuperBounce")
-        {
-            rb.velocity *= 3;
-        }
     }
 
     //Resets ball back to the middle of the field after scoring a goal
