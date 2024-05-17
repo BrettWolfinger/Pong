@@ -48,6 +48,8 @@ public class Controller : MonoBehaviour
 
     private void FixedUpdate() {
         move.Move(input.MoveInput);
+
+        //Only use the rotate function if we've enabled modded pong in the main menu
         if(modsEnabled)
         {
             rotate.Rotate(input.RotateInput);

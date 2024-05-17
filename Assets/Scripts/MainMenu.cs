@@ -12,11 +12,13 @@ public class MainMenu : MonoBehaviour
     public static Action<bool> ToggleClicked = delegate { };
     GameObject[] toggleableObjects;
 
-    // Freeze background gameplay
     void Start()
     {
+        // Freeze background gameplay
         Time.timeScale = 0;
+        //Cache modded objects for enabling/disabling
         toggleableObjects = GameObject.FindGameObjectsWithTag("Mod");
+        //Initially disable them
         ToggleMods();
     }
 
@@ -36,7 +38,9 @@ public class MainMenu : MonoBehaviour
 
     public void ToggleMods()
     {
+        //Event to tell controller that it shouldn't be using any modded actions
         ToggleClicked.Invoke(toggle.isOn);
+        //Change active status on cached modded objects
         foreach (GameObject obj in toggleableObjects)
         {
             obj.SetActive(toggle.isOn);
