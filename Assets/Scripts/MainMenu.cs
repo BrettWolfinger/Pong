@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] PaddleController nonPlayerPaddle;
+    [SerializeField] Controller nonPlayerPaddle;
+    [SerializeField] Controller player1;
     [SerializeField] GameManager gameManager;
 
     // Freeze background gameplay
@@ -16,14 +17,13 @@ public class MainMenu : MonoBehaviour
     public void PlaySinglePlayer()
     {
         gameObject.SetActive(false);
-        nonPlayerPaddle.SetAI(true);
+        nonPlayerPaddle.input = nonPlayerPaddle.GetComponent<AIInput>();
         gameManager.StartMatch();
     }
 
     public void PlayTwoPlayer()
     {
         gameObject.SetActive(false);
-        nonPlayerPaddle.SetAI(false);
         gameManager.StartMatch();
     }
 
