@@ -25,6 +25,7 @@ public class Controller : MonoBehaviour
     //other necessary references 
     public Rigidbody2D rb;
     Vector3 originalPosition;
+    Quaternion originalRotation;
 
     void Start()
     {
@@ -32,6 +33,7 @@ public class Controller : MonoBehaviour
         input = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody2D>();
         originalPosition = this.transform.position;
+        originalRotation = this.transform.rotation;
     }
     private void OnEnable() {
         GameManager.ResetState += Reset;
@@ -49,6 +51,6 @@ public class Controller : MonoBehaviour
     private void Reset() 
     {
         this.transform.position = originalPosition;
-        this.transform.rotation = new Quaternion (0,0,0,0);
+        this.transform.rotation = originalRotation;
     }
 }
