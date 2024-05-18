@@ -33,6 +33,8 @@ public class MainMenu : MonoBehaviour
     public void PlayTwoPlayer()
     {
         gameObject.SetActive(false);
+         //change nonplayer paddle to player controller (in case you come from 1 player to 2 player)
+        nonPlayerPaddle.input = nonPlayerPaddle.GetComponent<PlayerInput>();
         GameSelected.Invoke();
     }
 
